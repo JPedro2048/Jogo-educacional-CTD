@@ -1,0 +1,544 @@
+/* ========== Variáveis de cores e fontes ========== */
+:root{
+  --bg:#0b0a08;
+  --panel:#131110;
+  --line:rgba(200,161,87,0.4);
+  --line-faint:rgba(200,161,87,0.16);
+  --ink:#edd38a;
+  --ink-dim:#c8a157;
+  --ink-faint:#8a7248;
+  --ink-white:#f4ede0;
+  --grey:#584f42;
+  --grey-hi:#6f6455;
+  --green:#38d99b;
+  --green-deep:#1f7a5c;
+  --fakeout:#38bdd9;
+  --fakeout-deep:#1f7a94;
+  --amber:#e2a23c;
+  --amber-light:#f2c876;
+  --amber-dim:rgba(226,162,60,0.16);
+  --warn:#c9704a;
+  --display:'Poiret One', 'Arial Narrow', sans-serif;
+  --body:'Enriqueta', Georgia, 'Times New Roman', serif;
+}
+
+/* cores alternativas quando o modo daltonismo está ligado */
+:root.colorblind-mode{
+  --fakeout:#d93876;
+  --fakeout-deep:#7a1f47;
+}
+
+/* ========== Base da página ========== */
+*{box-sizing:border-box;}
+
+body{
+  margin:0;
+  min-height:100dvh;
+  background:
+    radial-gradient(ellipse 70% 40% at 50% 0%, rgba(200,161,87,0.10), transparent 60%),
+    repeating-linear-gradient(45deg, rgba(200,161,87,0.05) 0 1px, transparent 1px 68px),
+    repeating-linear-gradient(-45deg, rgba(200,161,87,0.05) 0 1px, transparent 1px 68px),
+    var(--bg);
+  color:var(--ink);
+  font-family:var(--body);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px 16px;
+  padding-block:32px;
+}
+
+/* ========== Contêiner principal ========== */
+.console{
+  width:100%;
+  max-width:540px;
+  display:flex;
+  flex-direction:column;
+  gap:22px;
+}
+
+/* ========== Ornamento ========== */
+/* divisor decorativo, que ecoa o motivo de lua + losango do modelo */
+.ornament{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.ornament .oline{
+  flex:1;
+  height:1px;
+  background:var(--line);
+}
+
+.ornament svg{
+  flex:none;
+  width:56px;
+  height:26px;
+  display:block;
+  color:var(--amber);
+}
+
+/* ========== Cabeçalho ========== */
+header{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  text-align:center;
+}
+
+.eyebrow{
+  font-family:var(--body);
+  font-size:12px;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  color:var(--ink-dim);
+  text-align:center;
+}
+
+h1{
+  font-family:var(--display);
+  font-weight:400;
+  font-size:clamp(34px, 8vw, 46px);
+  letter-spacing:0.04em;
+  margin:2px 0 0;
+  text-wrap:balance;
+  color:var(--ink);
+  text-align:center;
+}
+
+.readout{
+  text-align:center;
+  line-height:1.3;
+}
+
+.readout .label{
+  display:block;
+  font-size:11px;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--ink-faint);
+}
+
+.readout .value{
+  font-size:22px;
+  font-weight:700;
+  font-variant-numeric:tabular-nums;
+  color:var(--amber-light);
+  letter-spacing:0.03em;
+}
+
+/* ========== Painéis ========== */
+.panel{
+  background:var(--panel);
+  border:1px solid var(--line-faint);
+  border-radius:4px;
+  padding:22px;
+}
+
+/* ========== Personagem e diálogo ========== */
+.operator{
+  display:flex;
+  gap:14px;
+  align-items:flex-start;
+}
+
+.avatar{
+  flex:none;
+  width:64px;
+  height:auto;
+  display:block;
+  filter: drop-shadow(0 3px 5px rgba(0,0,0,0.55));
+}
+
+.avatar-tag{
+  font-family:var(--body);
+  font-size:10px;
+  letter-spacing:0.16em;
+  color:var(--ink-faint);
+  text-align:center;
+  margin-top:7px;
+  text-transform:uppercase;
+}
+
+.avatar-col{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.bubble{
+  flex:1;
+  min-width:0;
+}
+
+.bubble p{
+  margin:0 0 12px;
+  font-size:16px;
+  line-height:1.6;
+  color:var(--ink);
+  max-width:65ch;
+}
+
+.bubble p:last-of-type{margin-bottom:0;}
+
+.bubble p.warn-line{color:var(--warn);}
+
+.dialogue-dots{
+  display:flex;
+  gap:8px;
+  margin:6px 0 4px;
+}
+
+.dialogue-dots .dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--line);
+  transition: background-color 150ms ease, transform 150ms ease;
+}
+
+.dialogue-dots .dot.is-active{
+  background:var(--amber);
+  transform:scale(1.3);
+}
+
+/* ========== Botões ========== */
+button.action{
+  font-family:var(--body);
+  font-weight:700;
+  font-size:14px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--amber-light);
+  background:transparent;
+  border:1px solid var(--amber);
+  border-radius:999px;
+  padding:11px 24px;
+  cursor:pointer;
+  text-align:center;
+  transition:transform 120ms ease, background-color 150ms ease, color 150ms ease;
+  margin-top:14px;
+}
+
+button.action:hover{background:var(--amber); color:#1a1207;}
+button.action:active{transform:scale(0.97);}
+button.action:focus-visible{outline:2px solid var(--amber-light); outline-offset:3px;}
+
+button.action:disabled{
+  opacity:0.6;
+  cursor:not-allowed;
+}
+
+.choice-row{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:14px;
+}
+
+.choice-row button.action{margin-top:0;}
+
+/* ========== Interruptor do modo daltonismo ========== */
+/* interruptor acessível, exibido na tela inicial */
+.toggle{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  margin-top:16px;
+  background:none;
+  border:none;
+  padding:4px 0;
+  cursor:pointer;
+  font-family:var(--body);
+  font-size:13px;
+  color:var(--ink-dim);
+}
+
+.toggle-track{
+  position:relative;
+  flex:none;
+  width:40px;
+  height:22px;
+  border-radius:999px;
+  background:var(--amber-dim);
+  border:1px solid var(--line);
+  transition: background-color 150ms ease, border-color 150ms ease;
+}
+
+.toggle-thumb{
+  position:absolute;
+  top:2px;
+  left:2px;
+  width:16px;
+  height:16px;
+  border-radius:50%;
+  background:var(--ink-faint);
+  transition: transform 150ms ease, background-color 150ms ease;
+}
+
+.toggle[aria-pressed="true"] .toggle-track{
+  background:rgba(217,56,118,0.22);
+  border-color:var(--fakeout);
+}
+
+.toggle[aria-pressed="true"] .toggle-thumb{
+  transform:translateX(18px);
+  background:var(--fakeout);
+}
+
+.toggle:focus-visible{outline:2px solid var(--amber-light); outline-offset:3px;}
+
+/* ========== Botões com preenchimento ========== */
+/* o preenchimento amarelo percorre o próprio botão, em vez de usar
+   uma barra separada embaixo dele */
+button.action.fillbtn{
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+}
+
+.fillbtn .fill-layer{
+  position:absolute;
+  inset:0;
+  width:0%;
+  background:linear-gradient(90deg, var(--amber), var(--amber-light));
+  z-index:0;
+}
+
+.fillbtn .label-base{
+  position:relative;
+  z-index:1;
+  color:var(--amber-light);
+  white-space:nowrap;
+}
+
+.fillbtn:disabled .label-base{color:var(--amber-light);}
+
+.fillbtn .label-fill{
+  position:absolute;
+  inset:0;
+  z-index:2;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#1a1207;
+  white-space:nowrap;
+  clip-path: inset(0 100% 0 0);
+  pointer-events:none;
+}
+
+/* ========== Palco do jogo ========== */
+.stage{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:16px;
+  padding:36px 18px 26px;
+  overflow:hidden;
+}
+
+/* partículas decorativas que flutuam no fundo do palco */
+.particle-field{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:3;
+}
+
+.particle{
+  position:absolute;
+  border-radius:50%;
+  background:radial-gradient(circle, var(--amber), rgba(238,184,74,0) 72%);
+  opacity:0;
+  animation-name:particle-drift;
+  animation-timing-function:ease-in-out;
+  animation-fill-mode:forwards;
+}
+
+@keyframes particle-drift{
+  0%{ opacity:0; transform:translate(0,0) scale(0.5); }
+  18%{ opacity:0.85; }
+  82%{ opacity:0.6; }
+  100%{ opacity:0; transform:translate(var(--dx), var(--dy)) scale(1); }
+}
+
+.stage-caption{
+  font-family:var(--body);
+  font-size:12px;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--ink-faint);
+  text-align:center;
+}
+
+/* ========== Alvo de reflexo ========== */
+.target-wrap{
+  width:min(46vmin, 220px);
+}
+
+.target-square{
+  position:relative;
+  width:100%;
+  aspect-ratio:1;
+}
+
+.target-frame{
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:132%;
+  height:132%;
+  transform:translate(-50%, -50%) rotate(45deg);
+  border:1px solid var(--line);
+  pointer-events:none;
+}
+
+.target-frame::before{
+  content:'';
+  position:absolute;
+  inset:14%;
+  border:1px solid var(--line-faint);
+}
+
+#target{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  overflow:hidden;
+  border-radius:6px;
+  background:var(--grey);
+  border:1px solid var(--line-faint);
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
+  user-select:none;
+  box-shadow:
+    inset 0 0 0 1px rgba(237,211,138,0.06),
+    0 0 0 0 var(--green);
+  transition: background-color 90ms linear, box-shadow 220ms ease, transform 90ms ease;
+}
+
+#target:active{transform:scale(0.96);}
+
+.target-fill{
+  position:absolute;
+  left:0;
+  bottom:0;
+  width:100%;
+  height:0%;
+  background:linear-gradient(0deg, var(--amber), var(--amber-light));
+  pointer-events:none;
+}
+
+/* estados do alvo: verde (sinal real), falso, erro e pegadinha */
+#target.is-green{
+  background:var(--green);
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.08),
+    0 0 34px 6px var(--green-deep);
+}
+
+#target.is-green .target-fill{display:none;}
+
+#target.is-fakeout{
+  background:var(--fakeout);
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.08),
+    0 0 34px 6px var(--fakeout-deep);
+}
+
+#target.is-fakeout .target-fill{display:none;}
+
+#target.is-miss{
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.05),
+    0 0 0 3px var(--warn);
+}
+
+#target.is-fail{
+  background:var(--grey);
+  animation: fail-shake 480ms ease-in-out 2, fail-pulse 1100ms ease-in-out infinite;
+}
+
+@keyframes fail-shake{
+  0%, 100%{ transform:translateX(0); }
+  15%{ transform:translateX(-5px); }
+  30%{ transform:translateX(5px); }
+  45%{ transform:translateX(-4px); }
+  60%{ transform:translateX(4px); }
+  75%{ transform:translateX(-2px); }
+  90%{ transform:translateX(2px); }
+}
+
+@keyframes fail-pulse{
+  0%, 100%{
+    box-shadow:
+      inset 0 0 0 1px rgba(255,255,255,0.05),
+      0 0 0 3px var(--warn);
+  }
+  50%{
+    box-shadow:
+      inset 0 0 0 1px rgba(255,255,255,0.08),
+      0 0 26px 5px var(--warn);
+  }
+}
+
+/* ========== Placar ========== */
+.score-line{
+  font-family:var(--body);
+  font-size:13px;
+  letter-spacing:0.04em;
+  color:var(--ink-dim);
+  text-align:center;
+}
+
+.score-line b{color:var(--ink); font-variant-numeric:tabular-nums;}
+
+/* ========== Utilitários ========== */
+[hidden]{display:none !important;}
+
+/* ========== Telas de vitória e fim de jogo ========== */
+.win{
+  text-align:center;
+  padding:44px 20px;
+}
+
+.win .big{
+  font-family:var(--display);
+  font-weight:400;
+  font-size:clamp(36px,10vw,54px);
+  letter-spacing:0.03em;
+  color:var(--amber-light);
+  margin:0 0 10px;
+}
+
+.lose .big{color:var(--warn);}
+.lose button.action{border-color:var(--warn); color:var(--warn);}
+.lose button.action:hover{background:var(--warn); color:#1a0d09;}
+
+.win p{
+  color:var(--ink-dim);
+  font-size:15px;
+  margin:0 0 20px;
+}
+
+/* ========== Rodapé ========== */
+footer.hint{
+  text-align:center;
+  font-family:var(--body);
+  font-size:11px;
+  letter-spacing:0.12em;
+  color:var(--ink-faint);
+  text-transform:uppercase;
+}
+
+/* ========== Acessibilidade: movimento reduzido ========== */
+@media (prefers-reduced-motion: reduce){
+  #target, .target-fill, .fill-layer, .label-fill, button.action{transition:none;}
+  .particle{display:none;}
+  #target.is-fail{animation:none; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05), 0 0 0 3px var(--warn);}
+}
